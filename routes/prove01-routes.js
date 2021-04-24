@@ -1,6 +1,5 @@
 const fs = require('fs');
-const { reset } = require('nodemon');
-
+const users = ['User 1', 'User 2', 'User 3'];
 
 const requestHandler = (req, res) => {
     const url = req.url;
@@ -38,11 +37,12 @@ const requestHandler = (req, res) => {
 
         res.write('<body>');
         res.write('<h2>Our users are:</h2>')
+
+        // Read file (When there was a file before)
+        // let users = fs.readFileSync('./public/other/users_prove01.txt').toString().split('\n');
+
         // List of users
         res.write('<ul>');
-        // Read file
-        let users = fs.readFileSync('./public/other/users_prove01.txt').toString().split('\n');
-
         // Write file to html
         for (var user of users) {
             // console.log(users);
@@ -52,7 +52,6 @@ const requestHandler = (req, res) => {
         res.write('</ul>');
 
         res.write('<h3>That\'s all folks!</h3>');
-
         res.write('<a href="/">Back to the main page</a>')
 
         res.write('</body>');
@@ -63,18 +62,29 @@ const requestHandler = (req, res) => {
     if (url === '/create-user' && method === 'POST') {
         
         const body = [];
+        // Read data
         req.on('data', chunk => {
             body.push(chunk);
         });
+
         return req.on('end', () => {
             const parsedBody = Buffer.concat(body).toString();
-            console.log(parsedBody);
+            // Get the name of the user from the message
             const username = parsedBody.split('=')[1];
-            fs.appendFile('./public/other/users_prove01.txt', '\n' + username, (err) => {
-                res.statusCode = 302;
-                res.setHeader('Location', '/users');
-                return res.end();
-            });
+            console.log("Name given: ", username);
+            users.push(username);
+
+            // Redirect to list:
+            res.statusCode = 302;
+            res.setHeader('Location', '/users');
+            return res.end();
+
+            // Append the name to the file and redirect to /users
+            // fs.appendFile('./public/other/users_prove01.txt', '\n' + username, (err) => {
+            //     res.statusCode = 302;
+            //     res.setHeader('Location', '/users');
+            //     return res.end();
+            // });
         });
     }
 };
