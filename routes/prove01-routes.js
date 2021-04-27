@@ -7,6 +7,7 @@ const requestHandler = (req, res) => {
 
     // In testing, just to make sure it works
     // console.log('Requested page ', url);
+    // Checking git real quick...
 
     if (url === '/') {
         res.write('<html>');
