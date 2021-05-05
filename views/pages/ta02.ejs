@@ -9,13 +9,43 @@
 <div class="jumbotron text-center">
   <div class="container">
     <h1><%= title %></h1>
-    <p>This is the placeholder for Team Activity 02</p>
   </div>
 </div>
 <div class="container">
+  <form action="/ta02/addUser" method="POST">
+    <input type="text" name="addUser" id="addUser">
+    <button type="submit">Add User</button>
+  </form>
+  <ul>
+    <% users.forEach(element => { %>
+      <li><%= element %></li>
+    <% }) %>
+  </ul>
+  <form action="/ta02/removeUser" method="POST">
+    <input type="text" name="removeUser" id="removeUser">
+    <button type="submit">Remove User</button>
+  </form>
   
 </div>
 
+<script type="text/javascript">
+  // let error = <%# error %>;
+  let error = {message: "oops"};
+  console.log("Hi");
+  
+  if(error != null) {  
+    showAlert(error.message);
+  }
+
+  console.log("Error: ", error);
+  
+  
+  showAlert = function(err) {
+    alert('error: ' + err);
+  }
+</script>
+<!-- Script courtesy of:
+https://stackoverflow.com/questions/55058889/how-to-display-an-alert-in-ejs-file-in-nodejs -->
 
 </body>
 </html>
