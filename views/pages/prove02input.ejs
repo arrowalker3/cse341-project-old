@@ -2,7 +2,7 @@
 <html>
 <head>
     <% include ../includes/header.ejs %>
-    <link rel="stylesheet" href="/css/prove02.css">
+    <link rel="stylesheet" href="/stylesheets/prove02.css">
 </head>
 
 <body>
@@ -10,8 +10,16 @@
 
     <main>
         <form class="book-form" action="/prove02/prove02display" method="POST">
-            <input class="book-form_text" type="text" name="book" id="book">
-            <textarea class="book-form_paragraph" name="summary" id="summary">Summary of the book.</textarea>
+            <div class="form-control">
+                <div class="title">
+                    <label for="book">Book Title:</label>
+                    <input class="book-form__title" type="text" name="book" id="book">
+                </div>
+                <div class="summary">
+                    <label for="summary">Book Summary:</label>
+                    <textarea class="book-form__summary" name="summary" id="summary"></textarea>
+                </div>
+            </div>
             <button class="book-form_button" type="submit">Submit</button>
         </form>
     </main>
